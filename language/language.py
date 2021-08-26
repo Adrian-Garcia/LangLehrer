@@ -1,6 +1,6 @@
 from router_solver import *
 from vocabulary.vocabulary import *
-
+import random
 
 class Language(object):
     def __init__(self, vocabulary, name=None):
@@ -10,9 +10,9 @@ class Language(object):
         self.language_words = []
         self.translated_words_in_language = dict()
         self.language_words_translations = dict()
-        self.start()
+        self.__start()
 
-    def start(self):
+    def __start(self):
         words = self.vocabulary.get_words()
 
         for word in words:
@@ -37,3 +37,7 @@ class Language(object):
             self.language_words.append(
                 "{} {}".format(current_word.gender, current_word.word)
             )
+
+    def get_random_word(self):
+        words = self.vocabulary.get_words().values()
+        return random.choice(words)
