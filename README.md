@@ -1,4 +1,4 @@
-# LangBot
+# LangTeacher
 
 ## English
 Python library with terminal interface that serves as a support for language learners to learn, practice and reinforce knowledge. At the moment, it only has a German course for Spanish speakers.
