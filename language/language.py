@@ -2,6 +2,7 @@ from router_solver import *
 from vocabulary.vocabulary import *
 import random
 
+
 class Language(object):
     def __init__(self, vocabulary, name=None):
         self.vocabulary = vocabulary
@@ -17,27 +18,20 @@ class Language(object):
 
         for word in words:
             current_word = words[word]
+            translation = current_word.translation
 
             if current_word.gender:
-                self.translated_words_in_language[
-                    current_word.translation
-                ] = "{} {}".format(current_word.gender, current_word.word)
-                self.language_words_translations[
-                    "{} {}".format(current_word.gender, current_word.word)
-                ] = current_word.translation
-            else:
-                self.translated_words_in_language[
-                    current_word.translation
-                ] = current_word.word
-                self.translated_words_in_language[
-                    current_word.word
-                ] = current_word.translation
+                word_and_gender = "{} {}".format(current_word.gender, current_word.word)
+                self.translated_words_in_language[translation] = word_and_gender
+                self.language_words_translations[word_and_gender] = translation
 
-            self.translated_words.append(current_word.translation)
-            self.language_words.append(
-                "{} {}".format(current_word.gender, current_word.word)
-            )
+            else:
+                self.translated_words_in_language[translation] = current_word.word
+                self.translated_words_in_language[current_word.word] = translation
+
+            self.translated_words.append(translation)
+            self.language_words.append(word_and_gender)
 
     def get_random_word(self):
         words = self.vocabulary.get_words().values()
-        return random.choice(words)
+        return random.choice(list(words))
