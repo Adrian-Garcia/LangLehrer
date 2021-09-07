@@ -1,0 +1,20 @@
+# Nominativ
+Used when there is 1 person or 1 thing
+
+---
+
+# Akkusative
+Used after specific `verbs` and `prepositions`.<br>
+Used when there are 2 people or 2 things
+
+### Example
+- **Der hund** sieht **das kind**
+- **Das Kind** sieht **den Hund**
+- **Das kind** hat **einen Laptop**
+
+---
+
+# Dativ
+Used after specific prepositions.
+Also after specific verbs (50 verbs aproximately).
+And finally after sentences with more than 1 Object.
