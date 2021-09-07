@@ -28,5 +28,8 @@ class Scanner(object):
     def __scann_three_dimensions(vocabulary, vocabulary_list):
         for row in vocabulary_list:
             word_values = row[0].split(",")
+
+            print(word_values)
+
             word = Word(word_values[1], word_values[0], word_values[2])
             vocabulary.add_word(word_values[1], word)
