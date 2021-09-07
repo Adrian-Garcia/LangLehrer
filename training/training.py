@@ -1,4 +1,5 @@
 from router_solver import *
+from termcolor import colored
 from enum import Enum
 from language.language import *
 import os
@@ -60,7 +61,7 @@ class Training(object):
         questions = []
         options = []
 
-        for i in range(10):
+        for i in range(self.language.vocabulary.get_size()):
             quest, opt = self.__get_question_and_options()
 
             if quest not in questions:
@@ -102,23 +103,15 @@ class Training(object):
             question, options = self.__get_question_and_options()
 
         Training.__screen_clear()
-
-        if question.gender:
-            print('Traducción de "{} {}:"\n'.format(question.gender, question.word))
-
-        else:
-            print('Traducción de "{}":\n'.format(question.word))
-
-        for i in range(Training.OPTIONS):
-            print("Opcion {}: {}".format(i, options[i].translation))
-
-        user_response = int(input("\nRespuesta: "))
+        print(
+            'Traducción de "{} {}:"\n'.format(question.gender, question.word)
+            if question.gender
+            else 'Traducción de "{}":\n'.format(question.word)
+        )
+        Training.__show_options(list(map(lambda opt: opt.translation, options)))
+        user_response = int(input("\nRespuesta: ")) - 1
         grade = options[user_response] == question
-
-        if grade:
-            _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
-        else:
-            _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
+        Training.__rate(grade)
 
         return grade
 
@@ -127,24 +120,20 @@ class Training(object):
             question, options = self.__get_question_and_options()
 
         Training.__screen_clear()
-
         print('Traducción de "{}":\n'.format(question.translation))
-
-        for i in range(Training.OPTIONS):
-            option = options[i]
-
-            if option.gender:
-                print("Opcion {}: {} {}".format(i, option.gender, option.word))
-            else:
-                print("Opcion {}: {}".format(i, option.word))
-
-        user_response = int(input("\nRespuesta: "))
+        Training.__show_options(
+            list(
+                map(
+                    lambda option: "{} {}".format(option.gender, option.word)
+                    if option.gender
+                    else option.word,
+                    options,
+                )
+            )
+        )
+        user_response = int(input("\nRespuesta: ")) - 1
         grade = options[user_response] == question
-
-        if grade:
-            _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
-        else:
-            _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
+        Training.__rate(grade)
 
         return grade
 
@@ -153,18 +142,24 @@ class Training(object):
             question = self.language.get_random_word()
 
         Training.__screen_clear()
-
         print('Genero de "{}":\n'.format(question.word))
-
-        for i in range(len(Training.GENDERS)):
-            print("Opcion {}: {}".format(i, Training.GENDERS[i]))
-
-        user_response = int(input("\nRespuesta: "))
+        Training.__show_options(Training.GENDERS)
+        user_response = int(input("\nRespuesta: ")) - 1
         grade = Training.GENDERS[user_response] == question.gender
-
-        if grade:
-            _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
-        else:
-            _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
+        Training.__rate(grade)
 
         return grade
+
+    def __rate(grade):
+        if grade:
+            text = "\nRespuesta correcta! Oprime cualquier tecla para continuar\n"
+            color = "green"
+        else:
+            text = "\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n"
+            color = "red"
+
+        input(colored(text, color))
+
+    def __show_options(options):
+        for i in range(Training.OPTIONS):
+            print("Opción {}: {}".format(i + 1, options[i]))
