@@ -15,3 +15,6 @@ class Vocabulary(object):
     def print_words(self):
         for word in self.__words:
             self.__words[word].print()
+
+    def get_size(self):
+        return len(self.__words)

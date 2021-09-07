@@ -1,7 +1,14 @@
 from router_solver import *
+from enum import Enum
 from language.language import *
 import os
 from time import sleep
+
+
+class Games(Enum):
+    ORIGINAL_TO_TRANSLATED = 1
+    TRANSLATED_TO_ORIGINAL = 2
+    DIE_DER_DAS = 3
 
 
 class Training(object):
@@ -12,7 +19,6 @@ class Training(object):
         self.language = language
 
     def play(self):
-        print("Hello")
         user_option = "play"
 
         while user_option != None:
@@ -20,13 +26,13 @@ class Training(object):
             user_option = input("Opción: ")
 
             if user_option in ["A", "a", "1"]:
-                self.__original_to_translated()
+                self.__question_manager(Games.ORIGINAL_TO_TRANSLATED)
 
             elif user_option in ["B", "b", "2"]:
-                self.__translated_to_original()
+                self.__question_manager(Games.TRANSLATED_TO_ORIGINAL)
 
             elif user_option in ["C", "c", "3"]:
-                self.__die_der_das()
+                self.__question_manager(Games.DIE_DER_DAS)
 
             elif user_option in ["Z", "z", "0", "-1"]:
                 print("¡Nos vemos luego!")
@@ -50,6 +56,34 @@ class Training(object):
         else:
             os.system("cls")
 
+    def __question_manager(self, option):
+        questions = []
+        options = []
+
+        for i in range(10):
+            quest, opt = self.__get_question_and_options()
+
+            if quest not in questions:
+                questions.append(quest)
+                options.append(opt)
+
+        while len(questions):
+            question = questions.pop(0)
+            opt = options.pop(0)
+
+            if option == Games.ORIGINAL_TO_TRANSLATED:
+                grade = self.__original_to_translated(question, opt)
+
+            elif option == Games.TRANSLATED_TO_ORIGINAL:
+                grade = self.__translated_to_original(question, opt)
+
+            elif option == Games.DIE_DER_DAS:
+                grade = self.__die_der_das(question)
+
+            if not grade:
+                questions.append(question)
+                options.append(opt)
+
     def __get_question_and_options(self):
         question = self.language.get_random_word()
         options = [question]
@@ -63,8 +97,10 @@ class Training(object):
 
         return [question, options]
 
-    def __original_to_translated(self):
-        question, options = self.__get_question_and_options()
+    def __original_to_translated(self, question=None, options=None):
+        if question == None or options == None:
+            question, options = self.__get_question_and_options()
+
         Training.__screen_clear()
 
         if question.gender:
@@ -77,14 +113,19 @@ class Training(object):
             print("Opcion {}: {}".format(i, options[i].translation))
 
         user_response = int(input("\nRespuesta: "))
+        grade = options[user_response] == question
 
-        if options[user_response] == question:
+        if grade:
             _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
         else:
             _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
 
-    def __translated_to_original(self):
-        question, options = self.__get_question_and_options()
+        return grade
+
+    def __translated_to_original(self, question=None, options=None):
+        if question == None or options == None:
+            question, options = self.__get_question_and_options()
+
         Training.__screen_clear()
 
         print('Traducción de "{}":\n'.format(question.translation))
@@ -98,14 +139,19 @@ class Training(object):
                 print("Opcion {}: {}".format(i, option.word))
 
         user_response = int(input("\nRespuesta: "))
+        grade = options[user_response] == question
 
-        if options[user_response] == question:
+        if grade:
             _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
         else:
             _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
 
-    def __die_der_das(self):
-        question = self.language.get_random_word()
+        return grade
+
+    def __die_der_das(self, question=None):
+        if question == None:
+            question = self.language.get_random_word()
+
         Training.__screen_clear()
 
         print('Genero de "{}":\n'.format(question.word))
@@ -114,8 +160,11 @@ class Training(object):
             print("Opcion {}: {}".format(i, Training.GENDERS[i]))
 
         user_response = int(input("\nRespuesta: "))
+        grade = Training.GENDERS[user_response] == question.gender
 
-        if Training.GENDERS[user_response] == question.gender:
+        if grade:
             _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
         else:
             _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
+
+        return grade
