@@ -35,6 +35,18 @@ class Training(object):
             elif user_option in ["C", "c", "3"]:
                 self.__question_manager(Games.DIE_DER_DAS)
 
+            elif user_option in ["D", "d", "4"]:
+                input("PENDIENTE DE PROGRAMAR")
+
+            elif user_option in ["E", "e", "5"]:
+                input("PENDIENTE DE PROGRAMAR")
+
+            elif user_option in ["F", "f", "6"]:
+                input("PENDIENTE DE PROGRAMAR")
+
+            elif user_option in ["G", "g", "7"]:
+                input("PENDIENTE DE PROGRAMAR")
+
             elif user_option in ["Z", "z", "0", "-1"]:
                 print("¡Nos vemos luego!")
                 user_option = None
@@ -49,6 +61,10 @@ class Training(object):
         print("A) Palabras de alemán a español")
         print("B) Palabras de español a alemán")
         print("C) Die, der, das")
+        print("D) Verbos de alemán a español")
+        print("E) Verbos de español a alemán")
+        print("F) Adjetivos de alemán a español")
+        print("G) Adjetivos de español a alemán")
         print("Z) Salir")
 
     def __screen_clear():
