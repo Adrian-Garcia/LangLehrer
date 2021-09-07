@@ -8,7 +8,7 @@ class Scanner(object):
         vocabulary = Vocabulary(dict())
 
         with open(file_name, newline="") as csv_file:
-            vocabulary_list = list(csv.reader(csv_file, delimiter=" ", quotechar="|"))
+            vocabulary_list = list(csv.reader(csv_file, delimiter="|", quotechar="|"))
             dimensions = len(vocabulary_list.pop(0)[0].split(","))
 
             if dimensions == 2:
@@ -28,8 +28,5 @@ class Scanner(object):
     def __scann_three_dimensions(vocabulary, vocabulary_list):
         for row in vocabulary_list:
             word_values = row[0].split(",")
-
-            print(word_values)
-
             word = Word(word_values[1], word_values[0], word_values[2])
             vocabulary.add_word(word_values[1], word)

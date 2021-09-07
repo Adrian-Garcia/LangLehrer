@@ -6,6 +6,7 @@ from time import sleep
 
 class Training(object):
     OPTIONS = 3
+    GENDERS = ["die", "der", "das"]
 
     def __init__(self, language):
         self.language = language
@@ -24,6 +25,9 @@ class Training(object):
             elif user_option in ["B", "b", "2"]:
                 self.__translated_to_original()
 
+            elif user_option in ["C", "c", "3"]:
+                self.__die_der_das()
+
             elif user_option in ["Z", "z", "0", "-1"]:
                 print("¡Nos vemos luego!")
                 user_option = None
@@ -37,6 +41,7 @@ class Training(object):
         print("¿Qué deseas entrenar?")
         print("A) Palabras de alemán a español")
         print("B) Palabras de español a alemán")
+        print("C) Die, der, das")
         print("Z) Salir")
 
     def __screen_clear():
@@ -95,6 +100,22 @@ class Training(object):
         user_response = int(input("\nRespuesta: "))
 
         if options[user_response] == question:
+            _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
+        else:
+            _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
+
+    def __die_der_das(self):
+        question = self.language.get_random_word()
+        Training.__screen_clear()
+
+        print('Genero de "{}":\n'.format(question.word))
+
+        for i in range(len(Training.GENDERS)):
+            print("Opcion {}: {}".format(i, Training.GENDERS[i]))
+
+        user_response = int(input("\nRespuesta: "))
+
+        if Training.GENDERS[user_response] == question.gender:
             _ = input("\nRespuesta correcta! Oprime cualquier tecla para continuar\n")
         else:
             _ = input("\nRespuesta incorrecta! Oprime cualquier tecla para continuar\n")
