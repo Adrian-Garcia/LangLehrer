@@ -1,0 +1,10 @@
+Gender      präpositionen       Example
+--------------------------------------------------
+die         an der              an der Bank
+der         den                 den Park
+das         an dem / am         an dem Hotel
+
+
+
+# Example of directions
+Sie müssen die Strasse hier entlang, danach gehen sie rechts/links, geradeaus, in die strasse, an der Brüche entlang, durch den tunnel, durch das Tor, am Park Vorbei, entlang
