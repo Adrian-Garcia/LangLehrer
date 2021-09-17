@@ -69,6 +69,7 @@ das,Hotel,hotel
 der,Parkplatz,aparcamiento
 die,Schule,escuela
 der,Eisladen,heladería
+die,Eisdiele,heladería
 die,Jahreszeit,estación
 das,Kaufhaus,grandes almacenes
 der,Bahnhof,estación de tren
@@ -83,4 +84,18 @@ die,Apotheke,farmacia
 die,Verlustanzeige,reporte de pérdida
 die,Geldbörse,cartera
 die,Stadt,ciudad
-der,vormittag,de mañana
+der,Vormittag,de mañana
+die,Tasche,bolsa
+der,Rucksack,backpack
+das,Flugzeug,avion
+das,gleiche,igual
+die,Ankunft,llegada
+der,Urlaub,vacation
+der,Reisepass,passport
+die,Semesterferien,semestre sabático
+der,Sitzplatz,asiento
+der,Weg,path
+die,Reise,viaje
+der,Bus,autobus
+der,Zug,tren
+die,Ampel,semaforo
